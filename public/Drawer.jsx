@@ -18,14 +18,14 @@ function Drawer(props) {
                     onClick={() => onModeClick(mode)}
                     className={className}
                 >
-                    <MaterialUI.ListItemText primary={mode.modeName}/>
+                    <MaterialUI.ListItemText primary={capitalCase(mode.modeName)}/>
                 </MaterialUI.ListItem>);
             })}
         </MaterialUI.List>
         <MaterialUI.List subheader={<MaterialUI.ListSubheader>Devices</MaterialUI.ListSubheader>}>
             {devices?.map(device => {
                 return (<MaterialUI.ListItem button onClick={() => onDeviceClick(device)}>
-                    <MaterialUI.ListItemText primary={device.deviceName}/>
+                    <MaterialUI.ListItemText primary={capitalCase(device.deviceName)}/>
                 </MaterialUI.ListItem>);
             })}
         </MaterialUI.List>

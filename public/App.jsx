@@ -2,6 +2,7 @@ function App() {
     const [devices, setDevices] = React.useState(undefined);
     const [modes, setModes] = React.useState(undefined);
     const [currentMode, setCurrentMode] = React.useState(undefined);
+    const [currentModeInfo, setCurrentModeInfo] = React.useState(undefined);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const history = ReactRouterDOM.useHistory();
@@ -17,6 +18,18 @@ function App() {
     React.useEffect(() => {
         loadModes();
     }, []);
+
+    React.useEffect(() => {
+        async function loadCurrentModeInfo() {
+            setCurrentModeInfo(undefined);
+            if (currentMode) {
+                const modeInfoResponse = await axios.get(`/mode/${encodeURIComponent(currentMode)}`);
+                setCurrentModeInfo(modeInfoResponse.data);
+            }
+        }
+
+        loadCurrentModeInfo();
+    }, [currentMode])
 
     async function loadModes() {
         const response = await axios.get('/mode');
@@ -57,8 +70,20 @@ function App() {
         }
     }
 
+    async function handleModeButtonClick(modeName, buttonName) {
+        console.log('mode button click', modeName, buttonName);
+        setLoading(true);
+        try {
+            await axios.post(`/mode/${modeName}/button/${encodeURIComponent(buttonName)}`);
+            await loadModes();
+        } finally {
+            await sleep(500);
+            setLoading(false);
+        }
+    }
+
     return (<React.Fragment>
-        <Navbar onMenuClick={() => setDrawerOpen(!drawerOpen)} loading={loading}/>
+        <Navbar onMenuClick={() => setDrawerOpen(!drawerOpen)} loading={loading} currentMode={currentMode}/>
         <Drawer
             currentMode={currentMode}
             modes={modes}
@@ -75,6 +100,7 @@ function App() {
                     <AppDevice onButtonClick={handleDeviceButtonClick}/>
                 </ReactRouterDOM.Route>
                 <ReactRouterDOM.Route path="/">
+                    <Mode mode={currentModeInfo} onButtonClick={handleModeButtonClick}/>
                 </ReactRouterDOM.Route>
             </ReactRouterDOM.Switch>
         </div>

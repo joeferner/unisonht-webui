@@ -10,25 +10,6 @@ function Device(props) {
         loadDevice();
     }, []);
 
-    return (<div>
-        <MaterialUI.Typography variant="h6">Buttons</MaterialUI.Typography>
-        <ul className="buttons">
-            {Object.keys(buttons || {}).map(buttonName => {
-                const button = buttons[buttonName];
-                return (<li>
-                    <DeviceButton button={button} onClick={() => onButtonClick(deviceName, buttonName)}/>
-                </li>);
-            })}
-        </ul>
-    </div>);
+    return (<Buttons buttons={buttons} onClick={(buttonName) => onButtonClick(deviceName, buttonName)}/>);
 }
 
-function DeviceButton(props) {
-    const {button, onClick} = props;
-
-    return (<MaterialUI.Button
-        variant="contained"
-        color="default"
-        title={button.description}
-        onClick={() => onClick(button.name)}>{button.name}</MaterialUI.Button>);
-}

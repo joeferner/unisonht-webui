@@ -1,5 +1,5 @@
 function Navbar(props) {
-    const {onMenuClick, loading} = props;
+    const {onMenuClick, loading, currentMode} = props;
     const [subTitle, setSubtitle] = React.useState('');
     const location = ReactRouterDOM.useLocation();
 
@@ -17,8 +17,11 @@ function Navbar(props) {
                 <MaterialUI.IconButton onClick={onMenuClick} edge="start" color="inherit" style={{marginRight: '5px'}}>
                     <i className="fas fa-bars"/>
                 </MaterialUI.IconButton>
-                <MaterialUI.Typography variant="h6">
+                <MaterialUI.Typography variant="h6" className="title">
                     <MaterialUI.Link href="#" color="inherit" underline="none">UnisonHT</MaterialUI.Link>{subTitle}
+                </MaterialUI.Typography>
+                <MaterialUI.Typography variant="h6" className="current-mode">
+                    {capitalCase(currentMode)}
                 </MaterialUI.Typography>
             </MaterialUI.Toolbar>
         </MaterialUI.AppBar>

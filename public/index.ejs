@@ -2,7 +2,7 @@
 <head>
     <title>UnisonHT: Home</title>
     <link rel="stylesheet" href="/assets/css/fontawesome.css">
-    <link rel="stylesheet/less" type="text/css" href="/assets/less/webapi.less" />
+    <link rel="stylesheet/less" type="text/css" href="/assets/less/webapi.less"/>
 </head>
 <body>
 <div id="root"></div>
@@ -16,10 +16,24 @@
 <script src="/assets/js/less.js"></script>
 
 <script type="text/babel">
+    <%- include('Mode.jsx'); %>
     <%- include('Device.jsx'); %>
+    <%- include('Buttons.jsx'); %>
     <%- include('Drawer.jsx'); %>
     <%- include('Navbar.jsx'); %>
     <%- include('App.jsx'); %>
+
+    function capitalCase(str) {
+        if (!str) {
+            return str;
+        }
+
+        const splitStr = str.toLowerCase().split(/[ -_]/g);
+        for (let i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1).toLowerCase();
+        }
+        return splitStr.join(' ');
+    }
 
     function AppWrapper() {
         return (<ReactRouterDOM.HashRouter>
