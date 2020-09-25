@@ -1,39 +1,33 @@
 <html lang="en">
 <head>
     <title>UnisonHT: Home</title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.css">
-    <style>
-        .content {
-            margin: 5px;
-        }
-
-        ul.modes, ul.devices {
-            list-style: none;
-            padding: 0;
-        }
-
-        ul.modes li, ul.devices li {
-            display: inline;
-            padding-left: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/fontawesome.css">
+    <link rel="stylesheet/less" type="text/css" href="/assets/less/webapi.less" />
 </head>
 <body>
 <div id="root"></div>
 
-<script src="/assets/js/jquery.js"></script>
-<script src="/assets/js/bootstrap.js"></script>
 <script src="/assets/js/react.js"></script>
 <script src="/assets/js/react-dom.js"></script>
+<script src="/assets/js/react-router-dom.js"></script>
 <script src="/assets/js/babel.js"></script>
 <script src="/assets/js/axios.js"></script>
+<script src="/assets/js/material-ui.js"></script>
+<script src="/assets/js/less.js"></script>
 
 <script type="text/babel">
-    <%- include('Modes.jsx'); %>
-    <%- include('Devices.jsx'); %>
+    <%- include('Device.jsx'); %>
+    <%- include('Drawer.jsx'); %>
+    <%- include('Navbar.jsx'); %>
     <%- include('App.jsx'); %>
 
-    ReactDOM.render(<App/>, document.getElementById('root'));
+    function AppWrapper() {
+        return (<ReactRouterDOM.HashRouter>
+            <App/>
+        </ReactRouterDOM.HashRouter>);
+    }
+
+    ReactDOM.render(<AppWrapper/>, document.getElementById('root'));
 </script>
 </body>
 </html>

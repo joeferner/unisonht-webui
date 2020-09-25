@@ -1,7 +1,9 @@
 import findUp from 'find-up';
 import fs from 'fs';
+import path from 'path';
 import { RouteOptions } from '@unisonht/unisonht';
 import ejs from 'ejs';
+import { UnisonHT } from '@unisonht/unisonht/src/index';
 
 export class FileLoader {
     public async serveFile(contentType: string, filename: string): Promise<RouteOptions> {
@@ -42,5 +44,33 @@ export class FileLoader {
                 });
             },
         };
+    }
+
+    async serveDirectory(unisonht: UnisonHT, source: any, pathPrefix: string, localPath: string): Promise<void> {
+        const fullLocalPath = await findUp(localPath, { cwd: __dirname, type: 'directory' });
+        if (!fullLocalPath) {
+            throw new Error(`could not find path "${localPath}"`);
+        }
+        unisonht.get(source, `${pathPrefix}/:filename`, {
+            handler: async (req, res) => {
+                const filename = req.parameters.filename;
+                const fullFilename = path.join(fullLocalPath, filename);
+                let contentType = 'text';
+                if (fullFilename.endsWith('.woff')) {
+                    contentType = 'font/woff';
+                } else if (fullFilename.endsWith('.woff2')) {
+                    contentType = 'font/woff2';
+                } else if (fullFilename.endsWith('.ttf')) {
+                    contentType = 'font/ttf';
+                }
+
+                const content = await fs.promises.readFile(fullFilename);
+                res.send({
+                    statusCode: 200,
+                    contentType,
+                    content,
+                });
+            },
+        });
     }
 }

@@ -25,6 +25,14 @@ export class WebUI implements UnisonHTPlugin {
         );
         unisonht.get(
             this,
+            '/assets/js/material-ui.js',
+            await this.templateLoader.serveFile(
+                'text/javascript',
+                'node_modules/@material-ui/core/umd/material-ui.production.min.js',
+            ),
+        );
+        unisonht.get(
+            this,
             '/assets/js/jquery.js',
             await this.templateLoader.serveFile('text/javascript', 'node_modules/jquery/dist/jquery.min.js'),
         );
@@ -48,8 +56,40 @@ export class WebUI implements UnisonHTPlugin {
         );
         unisonht.get(
             this,
+            '/assets/js/react-router-dom.js',
+            await this.templateLoader.serveFile(
+                'text/javascript',
+                'node_modules/react-router-dom/umd/react-router-dom.min.js',
+            ),
+        );
+        unisonht.get(
+            this,
             '/assets/js/axios.js',
             await this.templateLoader.serveFile('text/javascript', 'node_modules/axios/dist/axios.min.js'),
+        );
+        unisonht.get(
+            this,
+            '/assets/js/less.js',
+            await this.templateLoader.serveFile('text/javascript', 'node_modules/less/dist/less.min.js'),
+        );
+        unisonht.get(
+            this,
+            '/assets/css/fontawesome.css',
+            await this.templateLoader.serveFile(
+                'text/css',
+                'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
+            ),
+        );
+        unisonht.get(
+            this,
+            '/assets/less/webapi.less',
+            await this.templateLoader.serveFile('stylesheet/less', 'public/webapi.less'),
+        );
+        await this.templateLoader.serveDirectory(
+            unisonht,
+            this,
+            '/assets/webfonts',
+            'node_modules/@fortawesome/fontawesome-free/webfonts',
         );
     }
 }
