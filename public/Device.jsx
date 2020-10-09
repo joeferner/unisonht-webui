@@ -16,7 +16,40 @@ function Device(props) {
         loadDevice();
     }, []);
 
+    function devicePowerStatus(status) {
+        if (!status || !('power' in status)) {
+            return null;
+        }
+
+        return (<div>
+            Power: {status.power}
+        </div>);
+    }
+
+    function deviceInputStatus(status) {
+        if (!status || !('input' in status)) {
+            return null;
+        }
+
+        return (<div>
+            Input: {status.input}
+        </div>);
+    }
+
+    function deviceVolumeStatus(status) {
+        if (!status || !('volume' in status)) {
+            return null;
+        }
+
+        return (<div>
+            Volume: {status.volume} {status.mute ? '(MUTE)' : ''}
+        </div>);
+    }
+
     return (<div>
+        {devicePowerStatus(status)}
+        {deviceInputStatus(status)}
+        {deviceVolumeStatus(status)}
         <Buttons buttons={buttons} onClick={(buttonName) => onButtonClick(deviceName, buttonName)}/>
         <MaterialUI.Accordion>
             <MaterialUI.AccordionSummary><MaterialUI.Typography>Status</MaterialUI.Typography></MaterialUI.AccordionSummary>
