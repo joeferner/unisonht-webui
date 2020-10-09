@@ -1,6 +1,6 @@
 {
   "name": "@unisonht/webui",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "UnisonHT Web UI Plugin",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -29,7 +29,7 @@
   "homepage": "https://github.com/joeferner/unisonht-webui#readme",
   "dependencies": {
     "@babel/standalone": "7.11.x",
-    "@fortawesome/fontawesome-free": "5.14.x",
+    "@fortawesome/fontawesome-free": "5.15.x",
     "@material-ui/core": "4.11.x",
     "@unisonht/unisonht": "0.0.x",
     "axios": "0.20.x",
