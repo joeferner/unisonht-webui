@@ -1,6 +1,6 @@
 {
   "name": "@unisonht/webui",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "UnisonHT Web UI Plugin",
   "main": "dist/index.js",
   "types": "src/index.ts",
@@ -32,6 +32,7 @@
     "@fortawesome/fontawesome-free": "5.15.x",
     "@material-ui/core": "4.11.x",
     "@unisonht/unisonht": "0.0.x",
+    "@types/ejs": "3.x",
     "axios": "0.20.x",
     "bootstrap": "4.5.x",
     "debug": "4.2.x",
@@ -45,7 +46,6 @@
   },
   "devDependencies": {
     "@types/debug": "4.x",
-    "@types/ejs": "3.x",
     "@types/node": "14.x",
     "@types/yargs": "15.x",
     "@typescript-eslint/eslint-plugin": "4.x",
